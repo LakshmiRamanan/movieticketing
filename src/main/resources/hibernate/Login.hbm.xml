@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.movieticketing.model.Login" table="login">
+        <id name="userName" type="string">
+            <column name="userid" length="25" not-null="true" unique="true" />
+        </id>
+        <property name="password" type="string">
+            <column name="password" length="25" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
