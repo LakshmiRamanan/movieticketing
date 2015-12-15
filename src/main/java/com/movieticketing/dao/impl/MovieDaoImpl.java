@@ -28,4 +28,9 @@ public class MovieDaoImpl extends HibernateDaoSupport implements MovieDao {
 		return getHibernateTemplate().find("from Movie where movieId = ?", movieId);
 
 	}
+
+	@Override
+	public List getAllMovies() {
+		return getHibernateTemplate().find("from Movie ");
+	}
 }

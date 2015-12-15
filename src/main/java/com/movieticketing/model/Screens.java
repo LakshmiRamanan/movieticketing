@@ -25,6 +25,7 @@ public class Screens implements Serializable {
 		this.theatreId = theatreId;
 	}
 
+	@Id
 	@Column(name = "screen", nullable = false)
 	public String getScreen() {
 		return screen;

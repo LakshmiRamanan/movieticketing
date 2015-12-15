@@ -2,18 +2,18 @@ package com.movieticketing.common;
 
 public class ShowDetails {
 
-	String userId;
+	String theatreId;
 	String screen;
 	String movieId;
 	String startDate;
 	String endDate;
 
-	public String getUserId() {
-		return userId;
+	public String getTheatreId() {
+		return theatreId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setTheatreId(String userId) {
+		this.theatreId = userId;
 	}
 
 	public String getScreen() {

@@ -12,4 +12,6 @@ public interface MovieDao {
     Boolean createMovie(Movie movie);
 
     List getMovie(String movieId);
+
+	List getAllMovies();
 }

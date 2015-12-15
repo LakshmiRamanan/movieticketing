@@ -35,5 +35,11 @@ public class MovieResource {
 		ResultBean result = movieBo.getMovie(movieId);
 		return Response.status(result.getStatus()).entity(result).build();
 	}
+	
+	@GET
+	public Response getAllMovies() {
+		ResultBean result = movieBo.getAllMovie();
+		return Response.status(result.getStatus()).entity(result).build();
+	}
 
 }

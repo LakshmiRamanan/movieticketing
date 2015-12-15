@@ -41,6 +41,13 @@ public class TheatreResource {
 	}
 
 	@GET
+	@Path("/screens/{theatreId}")
+	public Response getScreensOfTheatre(@PathParam("theatreId") String theatreId) {
+		ResultBean result = theatreBO.getScreensOfTheatre(theatreId);
+		return Response.status(result.getStatus()).entity(result).build();
+	}
+	
+	@GET
 	public Response getAllTheatre() {
 		ResultBean result = theatreBO.getAllTheatres();
 		return Response.status(result.getStatus()).entity(result).build();
@@ -75,5 +82,7 @@ public class TheatreResource {
 		ResultBean result = theatreBO.getAllMovies();
 		return Response.status(result.getStatus()).entity(result).build();
 	}
+	
+	
 
 }

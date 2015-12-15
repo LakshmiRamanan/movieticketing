@@ -47,13 +47,18 @@ public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 
 	@Override
 	public Boolean createScreen(Screens screens) {
-		getHibernateTemplate().save(screens);
-		return true;
+		try {
+			getHibernateTemplate().save(screens);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
 	public Boolean createShows(ShowDetails shows) {
-		List result = getHibernateTemplate().find("from Screens where theatreId = ? and screen = ?", shows.getUserId(),
+		List result = getHibernateTemplate().find("from Screens where theatreId = ? and screen = ?", shows.getTheatreId(),
 				shows.getScreen());
 		try {
 			if (result != null && result.size() == 1) {
@@ -72,7 +77,7 @@ public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 					for (int i = 1; i <= 4; i++) {
 						Shows show = new Shows();
 						show.setMovieId(shows.getMovieId());
-						show.setTheatreId(shows.getUserId());
+						show.setTheatreId(shows.getTheatreId());
 						show.setScreen(shows.getScreen());
 						show.setShowName(Integer.toString(i));
 						show.setDate(new java.sql.Date(targetDay.getTime()));
@@ -92,7 +97,8 @@ public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 
 	@Override
 	public List getMoviesByTheatre(String theatreId) {
-		List lst = getHibernateTemplate().find("from Movie where movieId in ( select distinct movieId from Shows where theatreId = ?)", theatreId);
+		List lst = getHibernateTemplate().find(
+				"from Movie where movieId in ( select distinct movieId from Shows where theatreId = ?)", theatreId);
 		return lst;
 	}
 
@@ -105,6 +111,12 @@ public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 	@Override
 	public List getAllTheatres() {
 		return getHibernateTemplate().find("from Theatre");
+	}
+
+	@Override
+	public List getScreensOfTheatre(String theatreId) {
+		List lst = getHibernateTemplate().find("from Screens where theatreId= ? )" , theatreId);
+		return lst;
 	}
 
 }

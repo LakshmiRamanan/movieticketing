@@ -13,4 +13,6 @@ public interface MovieBO {
     public ResultBean createMovie(Movie movie);
 
     public ResultBean getMovie(String movieId);
+
+	public ResultBean getAllMovie();
 }

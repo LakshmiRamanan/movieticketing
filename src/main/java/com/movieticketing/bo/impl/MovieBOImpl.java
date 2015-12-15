@@ -38,4 +38,12 @@ public class MovieBOImpl implements MovieBO {
         rb.setStatus(200);
         return rb;
     }
+
+	@Override
+	public ResultBean getAllMovie() {
+		ResultBean rb = new ResultBean();
+        rb.setRows(movieDao.getAllMovies());
+        rb.setStatus(200);
+        return rb;
+	}
 }

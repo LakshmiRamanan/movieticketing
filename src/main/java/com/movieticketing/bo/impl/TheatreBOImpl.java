@@ -84,4 +84,12 @@ public class TheatreBOImpl implements TheatreBO {
 		return rb;
 	}
 
+	@Override
+	public ResultBean getScreensOfTheatre(String theatreId) {
+		ResultBean rb = new ResultBean();
+		rb.setRows(theatreDao.getScreensOfTheatre(theatreId));
+		rb.setStatus(200);
+		return rb;
+	}
+
 }

@@ -21,5 +21,7 @@ public interface TheatreDao {
 	List getAllMovies();
 
 	List getAllTheatres();
+
+	List getScreensOfTheatre(String theatreId);
 	
 }
