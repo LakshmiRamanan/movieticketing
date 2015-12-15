@@ -40,6 +40,12 @@ public class TheatreResource {
 		return Response.status(result.getStatus()).entity(result).build();
 	}
 
+	@GET
+	public Response getAllTheatre() {
+		ResultBean result = theatreBO.getAllTheatres();
+		return Response.status(result.getStatus()).entity(result).build();
+	}
+	
 	@POST
 	@Path("/screens")
 	@Consumes(MediaType.APPLICATION_JSON)

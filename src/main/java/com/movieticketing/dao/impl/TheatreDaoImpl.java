@@ -20,7 +20,7 @@ public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 
 	@Override
 	public List getTheatre(String userid) {
-		return getHibernateTemplate().find("from Theatre where userId = ?", userid);
+		return getHibernateTemplate().find("from Theatre where theatreId = ?", userid);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 
 	@Override
 	public Boolean createShows(ShowDetails shows) {
-		List result = getHibernateTemplate().find("from Screens where userId = ? and screen = ?", shows.getUserId(),
+		List result = getHibernateTemplate().find("from Screens where theatreId = ? and screen = ?", shows.getUserId(),
 				shows.getScreen());
 		try {
 			if (result != null && result.size() == 1) {
@@ -100,6 +100,11 @@ public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 	public List getAllMovies() {
 		List lst = getHibernateTemplate().find("from Movie where movieId in ( select distinct movieId from Shows )");
 		return lst;
+	}
+
+	@Override
+	public List getAllTheatres() {
+		return getHibernateTemplate().find("from Theatre");
 	}
 
 }

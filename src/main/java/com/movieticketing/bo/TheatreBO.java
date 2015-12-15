@@ -19,4 +19,6 @@ public interface TheatreBO {
 
 	ResultBean getAllMovies();
 
+	ResultBean getAllTheatres();
+
 }

@@ -76,4 +76,12 @@ public class TheatreBOImpl implements TheatreBO {
 		return rb;
 	}
 
+	@Override
+	public ResultBean getAllTheatres() {
+		ResultBean rb = new ResultBean();
+		rb.setRows(theatreDao.getAllTheatres());
+		rb.setStatus(200);
+		return rb;
+	}
+
 }
