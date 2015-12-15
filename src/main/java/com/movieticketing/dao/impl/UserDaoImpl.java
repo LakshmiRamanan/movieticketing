@@ -22,7 +22,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	@Override
 	public String confirmTicket(TicketConfirmationDetails ticket) {
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date;
 
 			date = sdf.parse(ticket.getDate());

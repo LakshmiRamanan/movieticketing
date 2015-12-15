@@ -63,7 +63,7 @@ public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 		try {
 			if (result != null && result.size() == 1) {
 				Screens screen = (Screens) result.get(0);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date startDate = sdf.parse(shows.getStartDate());
 
 				Date endDate = sdf.parse(shows.getEndDate());
