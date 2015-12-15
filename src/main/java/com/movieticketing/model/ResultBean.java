@@ -34,4 +34,13 @@ public class ResultBean {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "ResultBean{" +
+                "rows=" + rows +
+                ", status=" + status +
+                ", exception='" + exception + '\'' +
+                '}';
+    }
 }

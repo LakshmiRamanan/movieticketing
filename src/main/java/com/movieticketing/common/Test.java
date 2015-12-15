@@ -1,7 +1,9 @@
 package com.movieticketing.common;
 
-import com.movieticketing.bo.LoginBo;
+import com.movieticketing.bo.LoginBO;
 import com.movieticketing.model.Login;
+import com.movieticketing.model.ResultBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -10,12 +12,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Test {
 
+    @Autowired
+    LoginBO loginBO;
+
     public static void main(String[] args) {
         ApplicationContext appContext =
                 new ClassPathXmlApplicationContext("config/applicationContext.xml");
 
-        LoginBo bo = (LoginBo) appContext.getBean("loginBo");
-        Login login = bo.getLoginCredentials("admin");
-        System.out.println("Login:" + login);
+       // LoginBO bo = (LoginBO) appContext.getBean("loginBo");
+        Login lg = new Login();
+        lg.setUserId("ani@bazinga.com");
+        lg.setPassword("ani123");
+        ResultBean rb = new Test().loginBO.validateLogin(lg);
+        System.out.println("Login:" + rb);
     }
 }

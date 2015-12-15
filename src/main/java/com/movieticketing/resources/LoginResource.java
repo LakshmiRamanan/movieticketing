@@ -1,6 +1,6 @@
-package com.movieticketing.resource.loginservice;
+package com.movieticketing.resources;
 
-import com.movieticketing.bo.LoginBo;
+import com.movieticketing.bo.LoginBO;
 import com.movieticketing.model.Login;
 import com.movieticketing.model.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 public class LoginResource {
 
     @Autowired
-    LoginBo loginBo;
+    LoginBO loginBo;
 
     @POST
     @Path("/validate")

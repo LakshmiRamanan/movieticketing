@@ -12,7 +12,7 @@
     <import resource="classpath:database/DataSource.xml"/>
     <import resource="classpath:database/Hibernate.xml"/>
 
-    <!-- Beans Declaration -->
-    <import resource="classpath:beans/Login.xml"/>
+     <!--Beans Declaration-->
+    <import resource="classpath:beans/beans.xml"/>
 
 </beans>

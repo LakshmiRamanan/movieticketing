@@ -7,5 +7,5 @@ public interface LoginDao {
 
 	Login getLoginCredentials(String userName);
 
-	Boolean validateLogin(Login login);
+	Login validateLogin(Login login);
 }

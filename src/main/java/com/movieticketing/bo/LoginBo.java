@@ -4,7 +4,7 @@ import com.movieticketing.model.Login;
 import com.movieticketing.model.ResultBean;
 import org.springframework.stereotype.Component;
 
-public interface LoginBo {
+public interface LoginBO {
 
 	Login getLoginCredentials(String userName);
 

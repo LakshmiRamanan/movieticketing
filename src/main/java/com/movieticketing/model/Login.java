@@ -1,18 +1,34 @@
 package com.movieticketing.model;
 
-public class Login {
+import java.io.Serializable;
 
-	private String userName;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+
+@Entity
+@Table(name = "login", catalog = "movie_ticketing", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "userid") })
+public class Login implements Serializable {
+
+	private String userId;
 	private String password;
+	private String role;
 
-	public String getUserName() {
-		return userName;
+    @Id
+    @Column(name = "userid", unique = true, nullable = false)
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserId(String userName) {
+		this.userId = userName;
 	}
 
+    @Column(name = "password", unique = true, nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -21,11 +37,21 @@ public class Login {
 		this.password = password;
 	}
 
+    @Column(name = "role", unique = true, nullable = false)
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
 		return "Login{" +
-				"userName='" + userName + '\'' +
+				"userName='" + userId + '\'' +
 				", password='" + password + '\'' +
+				", role='" + role + '\'' +
 				'}';
 	}
 }

@@ -1,30 +1,32 @@
 package com.movieticketing.bo.impl;
 
-import com.movieticketing.bo.LoginBo;
+import com.movieticketing.bo.LoginBO;
 import com.movieticketing.dao.LoginDao;
 import com.movieticketing.model.Login;
 import com.movieticketing.model.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Controller;
 
-public class LoginBOImpl implements LoginBo {
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+public class LoginBOImpl implements LoginBO {
 
     @Autowired
 	LoginDao loginDao;
 
-    public void setLoginDao(LoginDao loginDao) {
-        this.loginDao = loginDao;
-    }
-
 	public Login getLoginCredentials(String userName) {
-		return loginDao.getLoginCredentials(userName);
+        return loginDao.getLoginCredentials(userName);
 	}
 
     public ResultBean validateLogin(Login login) {
         ResultBean rb = new ResultBean();
-        Boolean status = loginDao.validateLogin(login);
-        if(status) {
+        Login lgin = loginDao.validateLogin(login);
+        if(lgin!=null) {
+            List<Login> rows = new ArrayList<Login>();
+            rows.add(lgin);
+            rb.setRows(rows);
             rb.setStatus(200);
         }
         else{

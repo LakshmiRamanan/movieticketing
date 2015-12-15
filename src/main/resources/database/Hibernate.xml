@@ -5,12 +5,9 @@
 
     <!-- Hibernate session factory -->
     <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" >
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" >
 
-        <property name="dataSource">
-            <ref bean="dataSource"/>
-        </property>
-
+        <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
@@ -18,11 +15,16 @@
             </props>
         </property>
 
-        <property name="mappingResources">
+        <property name="annotatedClasses">
             <list>
-                <value>hibernate/Login.hbm.xml</value>
+                <value>com.movieticketing.model.Login</value>
+                <value>com.movieticketing.model.Movie</value>
+                <value>com.movieticketing.model.Theatre</value>
+                <value>com.movieticketing.model.Screens</value>
+                <value>com.movieticketing.model.Shows</value>
+                <value>com.movieticketing.model.Ticket</value>
+                <value>com.movieticketing.model.User</value>
             </list>
         </property>
-
     </bean>
 </beans>
