@@ -130,12 +130,13 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 			List lst = movieDao.getMovie(movieId);
 			Movie movie = (Movie) lst.get(0);
 			int usr = movie.getUserCount();
-			double usrRating = movie.getRating();
+			double usrRating = movie.getUserRating();
 			if (rating != null && rating != "") {
 				double tmpRating = Double.parseDouble(rating);
-				double avg = (usrRating + tmpRating) / (usr + 1);
+				System.out.println("Parsed Rating:" + tmpRating);
+				double avg = ((usrRating * usr) + ( tmpRating))/ (++usr);
 				movie.setUserRating(avg);
-				movie.setUserCount(usr++);
+				movie.setUserCount(usr);
 				getHibernateTemplate().merge(movie);
 			}
 		} catch (Exception e) {

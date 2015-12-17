@@ -69,16 +69,17 @@ public class UserResource {
 		return Response.status(result.getStatus()).entity(result).build();
 	}
 
-	@POST
+	@GET
 	@Path("/ratemovie")
-	public Response rateMovie(@QueryParam("movieId") String movieId, @QueryParam("rating") String rating) {
+	public Response rateMovie(@QueryParam(value = "movieId") String movieId,
+			@QueryParam(value = "rating") String rating) {
 		System.out.println("MovieId: " + movieId + " Rating: " + rating);
 		ResultBean result = userBO.updateMovieRating(movieId, rating);
 		return Response.status(result.getStatus()).entity(result).build();
 	}
 
 	@GET
-	@Path("topRatedMovies")
+	@Path("/topratedmovies")
 	public Response getTopRatedMovies() {
 		ResultBean result = userBO.getTopRatedMovies();
 		return Response.status(result.getStatus()).entity(result).build();

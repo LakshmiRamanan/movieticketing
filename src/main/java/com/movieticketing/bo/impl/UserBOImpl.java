@@ -64,6 +64,8 @@ public class UserBOImpl implements UserBO {
 	@Override
 	public ResultBean updateMovieRating(String movieId, String rating) {
 		ResultBean rb = new ResultBean();
+		userDao.updateMovieRating(movieId, rating);
+		rb.setRows(null);
 		rb.setStatus(200);
 		return rb;
 	}

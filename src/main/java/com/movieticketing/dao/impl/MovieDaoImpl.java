@@ -2,9 +2,12 @@ package com.movieticketing.dao.impl;
 
 import com.movieticketing.dao.MovieDao;
 import com.movieticketing.model.Movie;
+
+import org.hibernate.Query;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,8 +48,11 @@ public class MovieDaoImpl extends HibernateDaoSupport implements MovieDao {
 
 	@Override
 	public List getTopRatedMovies() {
-		List lst = getHibernateTemplate().find("from Movie order by userRating LIMIT 10");
-		return lst;
-
+		List lst = getHibernateTemplate().find("from Movie order by userRating desc");
+		List ratedList = new ArrayList();
+		for(int i=0;i<10;i++){
+			ratedList.add(lst);
+		}
+		return ratedList;
 	}
 }
