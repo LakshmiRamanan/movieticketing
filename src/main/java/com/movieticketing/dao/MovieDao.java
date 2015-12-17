@@ -9,9 +9,14 @@ import java.util.List;
  */
 public interface MovieDao {
 
-    Boolean createMovie(Movie movie);
+	Boolean createMovie(Movie movie);
 
-    List getMovie(String movieId);
+	List getMovie(String movieId);
 
 	List getAllMovies();
+
+	String getMovieNameById(String movieId);
+
+	List getTopRatedMovies();
+
 }

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ticket", catalog = "movie_ticketing")
-public class Ticket implements Serializable{
+public class Ticket implements Serializable {
 
 	String userId;
 	String theatreId;

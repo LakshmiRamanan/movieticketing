@@ -1,11 +1,12 @@
 package com.movieticketing.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by nagal_000 on 12/2/2015.
  */
-public class ResultBean {
+public class ResultBean implements Serializable {
 
     List rows;
     int  status;

@@ -1,13 +1,12 @@
 package com.movieticketing.bo.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import com.movieticketing.bo.MovieBO;
 import com.movieticketing.dao.MovieDao;
 import com.movieticketing.model.Movie;
 import com.movieticketing.model.ResultBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
-import java.util.List;
 
 /**
  * Created by nagal_000 on 12/13/2015.

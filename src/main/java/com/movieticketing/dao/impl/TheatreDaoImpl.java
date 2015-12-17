@@ -8,10 +8,12 @@ import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.movieticketing.common.MovieTheatreShows;
 import com.movieticketing.common.ShowDetails;
 import com.movieticketing.common.TheatreDetails;
 import com.movieticketing.dao.TheatreDao;
 import com.movieticketing.model.Login;
+import com.movieticketing.model.Movie;
 import com.movieticketing.model.Screens;
 import com.movieticketing.model.Shows;
 import com.movieticketing.model.Theatre;
@@ -19,8 +21,8 @@ import com.movieticketing.model.Theatre;
 public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 
 	@Override
-	public List getTheatre(String userid) {
-		return getHibernateTemplate().find("from Theatre where theatreId = ?", userid);
+	public List getTheatre(String theatreId) {
+		return getHibernateTemplate().find("from Theatre where theatreId = ?", theatreId);
 	}
 
 	@Override
@@ -58,8 +60,8 @@ public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 
 	@Override
 	public Boolean createShows(ShowDetails shows) {
-		List result = getHibernateTemplate().find("from Screens where theatreId = ? and screen = ?", shows.getTheatreId(),
-				shows.getScreen());
+		List result = getHibernateTemplate().find("from Screens where theatreId = ? and screen = ?",
+				shows.getTheatreId(), shows.getScreen());
 		try {
 			if (result != null && result.size() == 1) {
 				Screens screen = (Screens) result.get(0);
@@ -115,8 +117,38 @@ public class TheatreDaoImpl extends HibernateDaoSupport implements TheatreDao {
 
 	@Override
 	public List getScreensOfTheatre(String theatreId) {
-		List lst = getHibernateTemplate().find("from Screens where theatreId= ? )" , theatreId);
+		List lst = getHibernateTemplate().find("from Screens where theatreId= ? )", theatreId);
 		return lst;
+	}
+
+	@Override
+	public List getTheatreIdForMovie(String movieId) {
+		List lst = getHibernateTemplate().find("select distinct theatreId from Shows where movieId= ? and date>= ? )",
+				movieId, new Date());
+		return lst;
+	}
+
+	@Override
+	public String getTheatreNameById(String theatreId) {
+		List lst = getHibernateTemplate().find("from Theatre where theatreId = ?", theatreId);
+		if (lst != null & lst.size() == 1) {
+			return ((Theatre) lst.get(0)).getName();
+		}
+		return null;
+	}
+
+	@Override
+	public MovieTheatreShows getShowsForMovieAndTheatre(String movieId, String theatreId) {
+		List lst = getHibernateTemplate().find(" from Shows where movieId =? and theatreId = ? and date>=?", movieId,
+				theatreId, new Date());
+		MovieTheatreShows theatreShows = new MovieTheatreShows();
+		theatreShows.setMovieId(movieId);
+		theatreShows.setTheatreId(theatreId);
+		for (Object o : lst) {
+			Shows show = (Shows) o;
+			theatreShows.addScreenDate(show.getScreen(), show.getDate());
+		}
+		return theatreShows;
 	}
 
 }

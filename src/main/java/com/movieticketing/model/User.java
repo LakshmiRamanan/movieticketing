@@ -1,5 +1,7 @@
 package com.movieticketing.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user", catalog = "movie_ticketing")
-public class User {
+public class User implements Serializable {
 
 	String userId;
 	String name;

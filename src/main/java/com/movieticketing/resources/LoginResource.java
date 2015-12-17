@@ -1,6 +1,7 @@
 package com.movieticketing.resources;
 
 import com.movieticketing.bo.LoginBO;
+import com.movieticketing.common.LoginDetails;
 import com.movieticketing.model.Login;
 import com.movieticketing.model.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class LoginResource {
     @POST
     @Path("/validate")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response validateLogin(Login login) {
+    public Response validateLogin(LoginDetails login) {
         System.out.println("Login: " + login);
         ResultBean result = loginBo.validateLogin(login);
         return Response.status(result.getStatus()).entity(result).build();

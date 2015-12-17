@@ -9,4 +9,12 @@ public interface UserBO {
 	ResultBean confirmTicket(TicketConfirmationDetails ticket);
 
 	ResultBean createUser(UserDetails user);
+
+	ResultBean getUser(String userId);
+
+	ResultBean getUserBookingDetails(String userId);
+
+	ResultBean updateMovieRating(String movieId, String rating);
+
+	ResultBean getTopRatedMovies();
 }

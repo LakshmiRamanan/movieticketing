@@ -23,4 +23,8 @@ public interface TheatreBO {
 
 	ResultBean getScreensOfTheatre(String theatreId);
 
+	ResultBean getTheatreIdForMovie(String movieId);
+
+	ResultBean getShowsForMovieAndTheatre(String movieId, String theatreId);
+
 }

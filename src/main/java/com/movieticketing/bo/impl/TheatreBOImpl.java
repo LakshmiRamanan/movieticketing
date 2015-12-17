@@ -1,5 +1,8 @@
 package com.movieticketing.bo.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -88,6 +91,24 @@ public class TheatreBOImpl implements TheatreBO {
 	public ResultBean getScreensOfTheatre(String theatreId) {
 		ResultBean rb = new ResultBean();
 		rb.setRows(theatreDao.getScreensOfTheatre(theatreId));
+		rb.setStatus(200);
+		return rb;
+	}
+
+	@Override
+	public ResultBean getTheatreIdForMovie(String movieId) {
+		ResultBean rb = new ResultBean();
+		rb.setRows(theatreDao.getTheatreIdForMovie(movieId));
+		rb.setStatus(200);
+		return rb;
+	}
+
+	@Override
+	public ResultBean getShowsForMovieAndTheatre(String movieId, String theatreId) {
+		ResultBean rb = new ResultBean();
+		List rows = new ArrayList<>();
+		rows.add(theatreDao.getShowsForMovieAndTheatre(movieId, theatreId));
+		rb.setRows(rows);
 		rb.setStatus(200);
 		return rb;
 	}

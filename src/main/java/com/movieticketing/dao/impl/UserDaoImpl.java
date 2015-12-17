@@ -4,20 +4,32 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.movieticketing.common.TicketConfirmationDetails;
+import com.movieticketing.common.UserBookingDetails;
 import com.movieticketing.common.UserDetails;
+import com.movieticketing.dao.MovieDao;
+import com.movieticketing.dao.TheatreDao;
 import com.movieticketing.dao.UserDao;
 import com.movieticketing.model.Login;
+import com.movieticketing.model.Movie;
 import com.movieticketing.model.Shows;
 import com.movieticketing.model.Ticket;
 import com.movieticketing.model.User;
 
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
+
+	@Autowired
+	TheatreDao theatreDao;
+
+	@Autowired
+	MovieDao movieDao;
 
 	@Override
 	public String confirmTicket(TicketConfirmationDetails ticket) {
@@ -32,13 +44,10 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 			List result = getHibernateTemplate().find(
 					"from Shows where userId = ? and screen = ? and showName = ? and movieId = ? and date = ?",
 					ticket.getTheatreId(), ticket.getScreen(), ticket.getShow(), ticket.getMovieId(), sqlDate);
-			System.out.println("Result size:" + result.size());
 			if (result != null && result.size() == 1) {
 				Shows shows = (Shows) result.get(0);
-				System.out.println("Seats:" + shows.getSeat());
 				if (shows.getSeat() > 0) {
 					int remainingSeats = shows.getSeat() - ticket.getSeatCount();
-					System.out.println(remainingSeats);
 					if (remainingSeats >= 0) {
 
 						SecureRandom random = new SecureRandom();
@@ -76,7 +85,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 			usr.setPhone(user.getPhoneNumber());
 			usr.setName(user.getName());
 			getHibernateTemplate().save(usr);
-			
+
 			Login login = new Login();
 			login.setUserId(user.getUserId());
 			login.setPassword(user.getPassword());
@@ -87,6 +96,56 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public List getUser(String userId) {
+		return getHibernateTemplate().find("from User where userId = ?", userId);
+	}
+
+	@Override
+	public List getUserBookingDetails(String userId) {
+		List<UserBookingDetails> userBookingDetails = null;
+		List results = getHibernateTemplate().find("from Ticket where userId = ?", userId);
+		if (results != null) {
+			userBookingDetails = new ArrayList();
+			for (Object o : results) {
+				Ticket ticket = (Ticket) o;
+				UserBookingDetails bookingDetail = new UserBookingDetails();
+				bookingDetail.setConfCode(ticket.getConfCode());
+				bookingDetail.setNoOfTickets(ticket.getSeatCount());
+				bookingDetail.setScreen(ticket.getScreen());
+				bookingDetail.setShow(ticket.getShow());
+				bookingDetail.setMovieName(movieDao.getMovieNameById(ticket.getMovieId()));
+				bookingDetail.setTheatreName(theatreDao.getTheatreNameById(ticket.getTheatreId()));
+				userBookingDetails.add(bookingDetail);
+			}
+		}
+		return userBookingDetails;
+	}
+
+	@Override
+	public void updateMovieRating(String movieId, String rating) {
+		try {
+			List lst = movieDao.getMovie(movieId);
+			Movie movie = (Movie) lst.get(0);
+			int usr = movie.getUserCount();
+			double usrRating = movie.getRating();
+			if (rating != null && rating != "") {
+				double tmpRating = Double.parseDouble(rating);
+				double avg = (usrRating + tmpRating) / (usr + 1);
+				movie.setUserRating(avg);
+				movie.setUserCount(usr++);
+				getHibernateTemplate().merge(movie);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List getTopRatedMovies() {
+		return movieDao.getTopRatedMovies();
 	}
 
 }

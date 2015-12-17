@@ -33,4 +33,20 @@ public class MovieDaoImpl extends HibernateDaoSupport implements MovieDao {
 	public List getAllMovies() {
 		return getHibernateTemplate().find("from Movie ");
 	}
+
+	@Override
+	public String getMovieNameById(String movieId) {
+		List lst = getHibernateTemplate().find("from Movie where movieId = ?", movieId);
+		if (lst != null & lst.size() == 1) {
+			return ((Movie) lst.get(0)).getTitle();
+		}
+		return null;
+	}
+
+	@Override
+	public List getTopRatedMovies() {
+		List lst = getHibernateTemplate().find("from Movie order by userRating LIMIT 10");
+		return lst;
+
+	}
 }

@@ -45,4 +45,35 @@ public class UserBOImpl implements UserBO {
 		return rb;
 	}
 
+	@Override
+	public ResultBean getUser(String userId) {
+		ResultBean rb = new ResultBean();
+		rb.setRows(userDao.getUser(userId));
+		rb.setStatus(200);
+		return rb;
+	}
+
+	@Override
+	public ResultBean getUserBookingDetails(String userId) {
+		ResultBean rb = new ResultBean();
+		rb.setRows(userDao.getUserBookingDetails(userId));
+		rb.setStatus(200);
+		return rb;
+	}
+
+	@Override
+	public ResultBean updateMovieRating(String movieId, String rating) {
+		ResultBean rb = new ResultBean();
+		rb.setStatus(200);
+		return rb;
+	}
+
+	@Override
+	public ResultBean getTopRatedMovies() {
+		ResultBean rb = new ResultBean();
+		rb.setRows(userDao.getTopRatedMovies());
+		rb.setStatus(200);
+		return rb;
+	}
+
 }
